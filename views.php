@@ -73,10 +73,9 @@
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<li><a class="dropdown-item" href="<?php echo site_url('Content/infodok/'); ?>">Informasi Dokumen</a></li>
-							<li><a class="dropdown-item" href="#">Informasi Kontak</a></li>
+							<li><a class="dropdown-item" href="<?php echo site_url('Content/infokon/'); ?>">Informasi Kontak</a></li>
 							<li><a class="dropdown-item" href="<?php echo site_url('Content/tentang/'); ?>">Tentang INTI-CSIRT</a></li>
 							<li><a class="dropdown-item" href="<?php echo site_url('Content/kebijakan/'); ?>">Kebijakan</a></li>
-							<li><a class="dropdown-item" href="#">Layanan INTI-CSIRT</a></li>
 							<li><a class="dropdown-item" href="<?php echo site_url('Content/dokpen/'); ?>">Dokumen Legal Pendukung</a></li>
 						</ul>
 					</li>
@@ -109,13 +108,11 @@
 		<span class="sr-only">Next</span>
 	</a>
 </div>
-
-
 <!-- HERO -->
 <section class="" style="width:100%; height: 600px;">		
-	<div class="container" style="background-color: #150544; width:970px; height:420px; border-top-right-radius: 40px; margin-right:35px;">
-		
-		<p style="color: white; font-family:poppins; margin: right 50%; margin-left:420px; margin-top:90px;"><img src="assets/images/logo-gembok.png" style="width:500px; margin-left: -550px; margin-top:-90px;">
+	<div class="container" style="background-color: #150544; width:970px; height:510px; border-top-right-radius: 40px; margin-right:35px;">
+		<h2 style="border-style: solid; width:22%; padding: 20px; border-radius:20px; color:white; margin-left:100px; margin-top:35px;"> ABOUT US</h2>
+		<p style="color: white; font-family:poppins; margin: right 50%; margin-left:420px; margin-top:55px;"><img src="assets/images/logo-gembok.png" style="width:500px; margin-left: -550px; margin-top:-90px;">
 		</p>
 		<p style="color: white; font-family:poppins; margin: right 50%; margin-left:420px; margin-top:-390px;">INTI - CSIRT melaksanakan layanan tanggap insiden siber , berupa :
 			<br><br>Layanan reaktif , yaitu layanan yang terkait dengan kebutuhan <br>melakukan respon terhadap insiden siber termasuk penangkalan , <br>penindakan dan pemulihan siber . <br>Layanan proaktif , yaitu layanan yang mendeteksi dan mencegah <br>serangan siber sebelum ada dampak nyata. <br>INTI - CSIRT direncanakan akan resmi di - launching pada bulan Juli <br>2022 dan setiap pengguna sistem elektronik di lingkungan PT <br>Industri Telekomunikasi Indonesia ( PT INTI ) dan anak <br>perusahaannya merupakan konstituen dari INTI - CSIRT .
@@ -126,7 +123,15 @@
 	<div class="container" style="width: 100%;">
 		<p style="color:white; font-family: poppins; margin-left: 55px;">NEWS</p>
 		<p style="color:white; font-family: poppins; margin-left: 55px;"><b>news update for you</b></p>
-		<div>
+		<div class="row">
+			<div class="col-md-12">
+				<form action="https://goo.gl/maps/gsRusPPmXN4WqvTg9">
+					<button type="submit" class="btn btn-labeled" style="color: 656565; margin-left: 1000px; margin-top:-95px; background-color:#F2F2F2; width:180px;">
+					<i class="fas fa-fw fa-location-dot"></i>Bandung, Indonesia <span class="btn-label"><i class="fa fa-chevron-right"></i></span>
+					</button>
+				</form>
+			</div>
+
 			<img src="assets/images/berita1.jpg" class="rounded-4" alt="" style="width: 350px; height: 350px; margin-left: 10px; border-radius: 25px;">
 			<img src="assets/images/berita2.jpg" class="rounded-4" alt="" style="width: 350px; height: 350px; margin-left: 20px; border-radius: 25px;">
 			<img src="assets/images/berita3.jpg" class="rounded-4" alt="" style="width: 350px; height: 350px; margin-left: 22px; border-radius: 25px;">
@@ -134,14 +139,14 @@
 		<div class="class" style="margin-top: 35px;">
 			<form action="#">
 				<center>
-					<button type="submit" class="btn btn-labeled" style="background-color: #150544; color:white;">
+					<button type="submit" class="btn btn-labeled" style="background-color: #150544; color:white; font-family: poppins; border-radius:8px;">
 						View all News <span class="btn-label"><i class="fa fa-chevron-right"></i></span></button>
 				</center>
 			</form>
 		</div>
 	</div>
 </section>
-<section class="" style="width:100%; color: white; height: 700px; margin-top:220px;">
+<section class="" style="width:100%; color: white; height: 600px; margin-top:220px;">
 	<div class="container">
 		<center>
 			<p style="color: black;">SPECIAL BENEFIT FOR YOU</p>
@@ -187,19 +192,42 @@
 		</div>
 	</div>
 </section>
-<section class="" style="width:100%; height: 600px;">		
-	<div class="container" style="width:970px; height:420px; border-top-right-radius: 40px; margin-right:35px;">
-	<p>CONTACT US</p>
+<section class="" style="width:100%; height: 500px;">
+	<div class="container" style="background-color: #150544; width:100%; height:250px; border-top-right-radius: 40px; margin-right:50px; margin-left:99px;">
+		<h2 style="font-family: poppins; color:white; margin-left:150px; margin-top:90px;">What people say</h2>
+		<p style="font-family: poppins; color:white; margin-left:150px;">All About Security Awareness</p>
+		<img src="assets/images/images1.png" class="" style="width: 150px; height: 220px; margin-left: 600px; margin-top:-85px; border-top-right-radius: 30px;">
+		<img src="assets/images/images2.png" class="" style="width: 150px; height: 220px; margin-left: 850px; margin-top:-240px; border-top-right-radius: 30px;">
+	</div>
 	</div>
 </section>
-<footer class=" site-footer" >
-	<div id="bottom-footer">
-		<div class="tg-container"style="background-color: #150544;">
-			<div class="mx-lg-auto text-center col-12" style="color: white;  margin-top:30px;">
-				Copyright &copy; 2022 INTI-CSIRT
-			</div>
-		</div>
+<section class="" style=" height: 650px;">
+	<img src="<?php echo base_url() ?>assets/images/manusia.png" width="550px" style="margin-left: 95px; margin-top:5px;">
+	<div class="isi" style="margin-top: -540px; margin-left: 55%; width:45%; font-family:poppins;">
+		<p style="color: blue;">CONTACT US</p>
+		<h3><b>Computer Security Incident <br>Response Team</b></h3>
+		<br><br>
+		<p style="color: #656565;">ADDRESS</p>
+		<h4><b>PT.Industri Telekomunikasi</b></h4>
+		<p style="color: #656565;">Jalan Moh. Toha No.77 Kelurahan Cigereleng, Kecamatan<br>Regol, Bandung, Jawa Barat 40113<br><br> EMAIL<br></p>
+		<b>csirt[at]inti.co.id</b><br><br>
+		<p style="color: #656565;">TELEPHONE</p>
+		<b>(022) 5201-501</b><br><br><br>
+		<button type="submit" class="btn btn-labeled" style="background-color: #150544; color:white; font-family: poppins; border-radius:8px;">
+						view profil <span class="btn-label"><i class="fa fa-chevron-right"></i></span>
+		</button>
 	</div>
+</section>
+<footer class=" site-footer" style="background-color: #150544; ">
+    <div id="bottom-footer">
+        <div class="tg-container" style="height: 100px;">
+            <div class="mx-lg-auto text-center col-12" style="background-color: #150544; ">
+                <p class="copyright-text" style="color:white; font-family: poppins;">
+                    Copyright &copy; 2022 INTI-CSIRT
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>
 </body>
-</html>
+</html
