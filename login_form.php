@@ -3,7 +3,7 @@ $login = array(
 	'name' => 'login',
 	'id' => 'user',
 	'value' => set_value('login'),
-	'placeholder' => 'Username',
+	'placeholder' => 'Email',
 	'class' => 'form-control',
 	'autocomplete' => 'off'
 );
@@ -20,7 +20,7 @@ $password = array(
 	'data-type' => 'password',
 	'value' => set_value('password'),
 	'class' => 'form-control',
-	'placeholder' => 'Katasandi',
+	'placeholder' => 'Password',
 	'autocomplete' => 'off'
 );
 $remember = array(
@@ -119,7 +119,6 @@ $label_captcha = "Confirmation Code";
 					<!--begin::Heading-->
 					<div class="fv-row mb-3">
 						<!--begin::Label-->
-						<label class="form-label fs-6 fw-bolder text-dark">Username</label>
 						<!--end::Label-->
 						<?php echo form_input($login, array('class' => 'form-control form-control-lg form-control-solid', 'autocomplete' => 'off')); ?>
 						<span style="color:red;">
@@ -132,7 +131,6 @@ $label_captcha = "Confirmation Code";
 						<!--begin::Wrapper-->
 						<div class="d-flex flex-stack mb-2">
 							<!--begin::Label-->
-							<label class="form-label fw-bolder text-dark fs-6 mb-0">Katasandi</label>
 							<!--end::Label-->
 							<!--begin::Link-->
 							<!----><?php //echo anchor('/Auth/forgot_password/', 'Lupa Kata sandi ?', array('class' => 'link-primary fs-6 fw-bolder')); 
@@ -184,7 +182,7 @@ $label_captcha = "Confirmation Code";
 							<?php echo form_checkbox($remember, array('class' => 'form-check-input', 'id' => 'flexCheckDefault')); ?>
 							<!-- <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> -->
 							<label class="form-check-label" for="flexCheckDefault">
-								Ingat Saya
+								Remember me
 							</label>
 						</div>
 						<!-- <div class="checkbox-fade fade-in-primary d-">
@@ -204,7 +202,7 @@ $label_captcha = "Confirmation Code";
 					<div class="text-center">
 						<!--begin::Submit button-->
 						<button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-							<span class="indicator-label">Masuk</span>
+							<span class="indicator-label">Login</span>
 							<span class="indicator-progress">Please wait...
 								<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 						</button>
