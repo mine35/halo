@@ -14,29 +14,3 @@
         padding-left: 0px;
         box-sizing: border-box;
     }
-
-    .parag{
-        color: white;
-        font-family: poppins;
-        margin-left: 650px;
-    }
-
-    .navbar{
-        margin-top: -10px
-    }
-
-    .navbar-brand{
-        padding: 15px; 
-        margin-top: -10px; 
-        margin-left: 0px;
-    }
-
-    .container1{
-        background-color: #150544; 
-        width:1000px; 
-        height:1500px; 
-        border-top-right-radius: 40px; 
-        margin-left:140px;
-        margin-top: 10px;
-    }
-    
