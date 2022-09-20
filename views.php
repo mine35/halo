@@ -38,6 +38,32 @@
 	<script src="<?php echo base_url() ?>assets-landing/js/owl.carousel.min.js"></script>
 	<script src="<?php echo base_url() ?>assets-landing/js/smoothscroll.js"></script>
 	<script src="<?php echo base_url() ?>assets-landing/js/custom.js"></script>
+	
+	<style>
+	.atas {
+			background-color: #150544;
+			height: 140px;
+			width: 235px;
+			border-radius: 15px;
+			margin-top: 2960px;
+			z-index: 15;
+			top: 75%;
+			position: absolute;
+			margin-left: 80px;
+		}
+
+		.bawah {
+			background-color: #150544;
+			height: 160px;
+			width: 140px;
+			border-radius: 15px;
+			margin-top: 2600px;
+			z-index: 15;
+			top: 75%;
+			position: absolute;
+			margin-left: 450px;
+		}
+	</style>
 
 </head>
 
@@ -201,21 +227,30 @@
 	</div>
 	</div>
 </section>
-<section class="" style=" height: 650px;">
-	<img src="<?php echo base_url() ?>assets/images/manusia.png" width="550px" style="margin-left: 95px; margin-top:5px;">
-	<div class="isi" style="margin-top: -540px; margin-left: 55%; width:45%; font-family:poppins;">
+<section class="" style="width:100%; height: 800px;">
+	<div class="atas">
+		<img src="assets/images/kotak.png" alt="" style="width:46%; padding:17px;">
+		<p style="margin-left: 100px; font-size:smaller; margin-top:-108px; color:white; font-family:poppins;">INTI-CSIRT<br>Computer Security<br> Incident Response<br>Team</p>
+	</div>
+	<div class="bawah">
+		<img src="assets/images/kotak2.png" alt="" style="width:78%; padding:20px; margin-left:14px;">
+		<p style="margin-left: 40px; font-size:smaller; margin-top:-10px; color:white; font-family:poppins;"><b style="margin-left: 13px;">Trust</b><br>Guaranted</p>
+	</div>
+	<img src="<?php echo base_url() ?>assets/images/manusia2.png" width="475px" style="margin-left: 95px; margin-top:-120px;">
+	<div class="isi" style="margin-top: -480px; margin-left: 50%; width:45%; font-family:poppins;">
 		<p style="color: blue;">CONTACT US</p>
 		<h3><b>Computer Security Incident <br>Response Team</b></h3>
 		<br><br>
-		<p style="color: #656565;">ADDRESS</p>
+		<p style="color: #656565;">ADDRESS</p><br>
 		<h4><b>PT.Industri Telekomunikasi</b></h4>
+		<button type="submit" class="btn btn-labeled" style="background-color: white; color:#FDC886; font-family: poppins; margin-left:70%; margin-top:-65px;">
+			<a href="<?php echo base_url('Content/profil') ?>" class="href" style="color:#FDC886;"> Profile Details</a> <span class="btn-label"><i class="fa fa-chevron-right"></i></span></button>
 		<p style="color: #656565;">Jalan Moh. Toha No.77 Kelurahan Cigereleng, Kecamatan<br>Regol, Bandung, Jawa Barat 40113<br><br> EMAIL<br></p>
 		<b>csirt[at]inti.co.id</b><br><br>
 		<p style="color: #656565;">TELEPHONE</p>
 		<b>(022) 5201-501</b><br><br><br>
-		<button type="submit" class="btn btn-labeled" style="background-color: #150544; color:white; font-family: poppins; border-radius:8px;">
-						view profil <span class="btn-label"><i class="fa fa-chevron-right"></i></span>
-		</button>
+		<button type="submit" class="btn btn-labeled" style="background-color: #150544; color:white; font-family: poppins;">
+			<a href="<?php echo base_url('Content/profil') ?>" style="color: white;">View Profile <span class="btn-label"><i class="fa fa-chevron-right"></i></span></button>
 	</div>
 </section>
 <footer class=" site-footer" style="background-color: #150544; ">
