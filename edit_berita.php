@@ -11,7 +11,7 @@
 <body>
     <div class="konten">
         <h1>Mengubah berita</h1>
-        <form name="form1" method="post" action="<?php echo base_url(); ?>admin/berita/edit" class="myform">
+        <form name="form1" method="post" action="<?php echo base_url(); ?>admin/berita/edit/<?php echo $detail['id_berita'] ?>" class="myform">
             <p><label for="judul">Judul berita</label>
                 <input name="judul" type="text" id="judul" size="70" value="<?php echo $detail['judul'] ?>">
             </p>
