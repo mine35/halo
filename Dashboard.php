@@ -60,6 +60,7 @@ class Dashboard extends CI_Controller
 
 			$this->data['openMenu'] = $this->Showmenu_model->getDataOpenMenu($OpenShowMenu->id_menu_parent);
 			$this->load->model('admin/indok_model');
+			$this->load->model('admin/kontak_model');
 		}
 	}
 
@@ -87,10 +88,22 @@ class Dashboard extends CI_Controller
 	{
 		$query = $this->indok_model->daftar_indok();
 		$data = array('indok' => $query);
+		$this->data['title'] = 'Informasi Dokument';
+
+		$this->data['breadcrumbs'][] = [
+			'active' => FALSE,
+			'text' => 'Dashboard',
+			'class' => 'breadcrumb-item pe-3 text-gray-400',
+			'href' => site_url('Dashboard')
+		];
+
+		$this->load->view('component/header', $this->data);
+		$this->load->view('component/sidebar', $this->data);
 		$this->load->view('indok/indok_views', $data);
+		$this->load->view('component/footer');
 	}
 
-	public function tambah()
+	public function tambahIndok()
 	{
 		$this->form_validation->set_rules('judul', 'judul', 'required');
 		$this->form_validation->set_rules('isi', 'isi', 'required');
@@ -106,7 +119,7 @@ class Dashboard extends CI_Controller
 		}
 	}
 
-	public function edit($id)
+	public function editIndok($id)
 	{
 		$this->form_validation->set_rules('judul', 'judul', 'required');
 		$this->form_validation->set_rules('isi', 'isi', 'required');
@@ -130,9 +143,81 @@ class Dashboard extends CI_Controller
 		}
 	}
 
-	public function delete($id)
+	public function deleteIndok($id)
 	{
 		$this->indok_model->delete_indok($id);
 		redirect(base_url() . 'content/indok/');
+	}
+
+
+	public function informasi()
+	{
+		$query = $this->kontak_model->daftar_kontak();
+		$data = array('kontak' => $query);
+		$this->data['title'] = 'Informasi Kontak';
+
+		$this->data['breadcrumbs'][] = [
+			'active' => FALSE,
+			'text' => 'Dashboard',
+			'class' => 'breadcrumb-item pe-3 text-gray-400',
+			'href' => site_url('Dashboard')
+		];
+
+		$this->load->view('component/header', $this->data);
+		$this->load->view('component/sidebar', $this->data);
+		$this->load->view('admin/kontak/kontak_view', $data);
+		$this->load->view('component/footer');
+	}
+
+	public function tambahInfo()
+	{
+		$this->form_validation->set_rules('judul', 'Judul', 'required');
+		$this->form_validation->set_rules('isi', 'Isi kontak', 'required');
+		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('admin./kontak/tambah_kontak');
+		} else {
+			$data = array(
+				'icon' => $this->input->post('icon'),
+				'nama' => $this->input->post('nama'),
+				'status' => $this->input->post('status'),
+				'jabatan' => $this->input->post('jabatan')
+			);
+			$this->kontak_model->tambah($data);
+			redirect(base_url() . 'admin/kontak/');
+		}
+	}
+
+	public function editInfo($id)
+	{
+		$this->form_validation->set_rules('icon', 'Icon', 'required');
+		$this->form_validation->set_rules('nama', 'Nama', 'required');
+		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
+		if ($this->form_validation->run() === FALSE) {
+			$data['kontak_csirt'] = $this->kontak_model->detail_kontak();
+			$data['detail'] = $this->kontak_model->detail_kontak($id);
+			$data = array(
+				'kontak_csirt' => $this->kontak_model->detail_kontak(),
+				'detail' => $this->kontak_model->detail_kontak($id)
+			);
+			$this->load->view('admin/kontak/edit_kontak', $data);
+			// Kalau tidak ada error kontak diupdate
+		} else {
+			$data = array(
+				'id_kontak' => $this->input->post('id_kontak'),
+				'icon' => $this->input->post('icon'),
+				'nama' => $this->input->post('nama'),
+				'status' => $this->input->post('status'),
+				'jabatan' => $this->input->post('jabatan')
+			);
+			$this->kontak_model->edit_kontak($data);
+			redirect(base_url() . 'admin/kontak/');
+		}
+	}
+
+	public function deletIenfo($id)
+	{
+		$this->kontak_model->delete_kontak($id);
+		redirect(base_url() . 'admin/kontak/');
 	}
 }
