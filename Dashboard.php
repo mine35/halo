@@ -23,6 +23,8 @@ class Dashboard extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('upload');
+		$this->load->helper(['url', 'form']);
 
 		$this->load->library('tank_auth');
 
@@ -61,6 +63,8 @@ class Dashboard extends CI_Controller
 			$this->data['openMenu'] = $this->Showmenu_model->getDataOpenMenu($OpenShowMenu->id_menu_parent);
 			$this->load->model('admin/indok_model');
 			$this->load->model('admin/kontak_model');
+			$this->load->model('admin/dokpen_model');
+			$this->load->model('admin/buletin_model');
 		}
 	}
 
@@ -150,6 +154,7 @@ class Dashboard extends CI_Controller
 	}
 
 
+
 	public function informasi()
 	{
 		$query = $this->kontak_model->daftar_kontak();
@@ -165,14 +170,16 @@ class Dashboard extends CI_Controller
 
 		$this->load->view('component/header', $this->data);
 		$this->load->view('component/sidebar', $this->data);
-		$this->load->view('admin/kontak/kontak_view', $data);
+		$this->load->view('admin./kontak/kontak_view', $data);
 		$this->load->view('component/footer');
 	}
 
 	public function tambahInfo()
 	{
-		$this->form_validation->set_rules('judul', 'Judul', 'required');
-		$this->form_validation->set_rules('isi', 'Isi kontak', 'required');
+		$this->form_validation->set_rules('icon', 'icon', 'required');
+		$this->form_validation->set_rules('nama', 'nama', 'required');
+		$this->form_validation->set_rules('status', 'status', 'required');
+		$this->form_validation->set_rules('jabatan', 'jabatan', 'required');
 		if ($this->form_validation->run() === FALSE) {
 			$this->load->view('admin./kontak/tambah_kontak');
 		} else {
@@ -183,16 +190,16 @@ class Dashboard extends CI_Controller
 				'jabatan' => $this->input->post('jabatan')
 			);
 			$this->kontak_model->tambah($data);
-			redirect(base_url() . 'admin/kontak/');
+			redirect(base_url() . 'content/informasi/');
 		}
 	}
 
 	public function editInfo($id)
 	{
-		$this->form_validation->set_rules('icon', 'Icon', 'required');
-		$this->form_validation->set_rules('nama', 'Nama', 'required');
-		$this->form_validation->set_rules('status', 'Status', 'required');
-		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
+		$this->form_validation->set_rules('icon', 'icon', 'required');
+		$this->form_validation->set_rules('nama', 'nama', 'required');
+		$this->form_validation->set_rules('status', 'status', 'required');
+		$this->form_validation->set_rules('jabatan', 'jabatan', 'required');
 		if ($this->form_validation->run() === FALSE) {
 			$data['kontak_csirt'] = $this->kontak_model->detail_kontak();
 			$data['detail'] = $this->kontak_model->detail_kontak($id);
@@ -204,20 +211,248 @@ class Dashboard extends CI_Controller
 			// Kalau tidak ada error kontak diupdate
 		} else {
 			$data = array(
-				'id_kontak' => $this->input->post('id_kontak'),
+				'id_kontak' => $id,
 				'icon' => $this->input->post('icon'),
 				'nama' => $this->input->post('nama'),
 				'status' => $this->input->post('status'),
 				'jabatan' => $this->input->post('jabatan')
 			);
 			$this->kontak_model->edit_kontak($data);
-			redirect(base_url() . 'admin/kontak/');
+			redirect(base_url() . 'content/informasi/');
 		}
 	}
 
-	public function deletIenfo($id)
+	public function deleteInfo($id)
 	{
 		$this->kontak_model->delete_kontak($id);
-		redirect(base_url() . 'admin/kontak/');
+		redirect(base_url() . 'content/informasi');
 	}
+
+
+
+	public function dokpen()
+	{
+		$query = $this->dokpen_model->daftar_dokpen();
+		$data = array('dokpen' => $query);
+		$this->data['title'] = 'Dokumen Legal Pendukung';
+
+		$this->data['breadcrumbs'][] = [
+			'active' => FALSE,
+			'text' => 'Dashboard',
+			'class' => 'breadcrumb-item pe-3 text-gray-400',
+			'href' => site_url('Dashboard')
+		];
+
+		$this->load->view('component/header', $this->data);
+		$this->load->view('component/sidebar', $this->data);
+		$this->load->view('admin/dokpen/dokpen_view', $data);
+		$this->load->view('component/footer');
+	}
+
+	public function tambahDokpen()
+	{
+		$this->form_validation->set_rules('judul', 'judul', 'required');
+		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('admin/dokpen/tambah_dokpen');
+		} else {
+			$this->load->library('upload');
+			$upload_file = $_FILES['isi']['name'];
+			$path = './assets/dokpen/';
+			if (!is_dir($path)) {
+				mkdir($path, 0777, true);
+			}
+
+			if ($upload_file) {
+				$config['allowed_types'] = 'pdf|docx|xls|ppt';
+				$config['upload_path'] = $path;
+
+				$this->upload->initialize($config);
+
+				if ($this->upload->do_upload('isi')) {
+					$new_file = $this->upload->data('file_name');
+					// $this->db->set('image', $new_image);
+				} else {
+					echo $this->upload->display_errors();
+				}
+			}
+			$data = array(
+				'judul' => $this->input->post('judul'),
+				'isi' => $new_file
+			);
+			$this->dokpen_model->tambah($data);
+			redirect(base_url() . 'content/dokpen/');
+		}
+	}
+
+	public function editDokpen($id)
+	{
+		$this->form_validation->set_rules('judul', 'judul', 'required');
+		$this->form_validation->set_rules('isi', 'isi', 'required');
+		if ($this->form_validation->run() === FALSE) {
+			$data['dokpen_csirt'] = $this->dokpen_model->detail_dokpen();
+			$data['detail'] = $this->dokpen_model->detail_dokpen($id);
+			$data = array(
+				'dokpen_csirt' => $this->dokpen_model->detail_dokpen(),
+				'detail' => $this->dokpen_model->detail_dokpen($id)
+			);
+			$this->load->view('admin/dokpen/edit_dokpen', $data);
+			// Kalau tidak ada error dokpen diupdate
+		} else {
+			$data = array(
+				'id_dokpen' => $id,
+				'judul' => $this->input->post('judul'),
+				'isi' => $this->input->post('isi'),
+			);
+			$this->dokpen_model->edit_dokpen($data);
+			redirect(base_url() . 'content/dokpen/');
+		}
+	}
+
+	public function deleteDokpen($id)
+	{
+		$this->dokpen_model->delete_dokpen($id);
+		redirect(base_url() . 'content/dokpen/');
+	}
+
+
+	public function buletin()
+	{
+		$query = $this->buletin_model->daftar_buletin();
+		$data = array('buletin' => $query);
+		$this->data['title'] = 'Buletin';
+
+		$this->data['breadcrumbs'][] = [
+			'active' => FALSE,
+			'text' => 'Dashboard',
+			'class' => 'breadcrumb-item pe-3 text-gray-400',
+			'href' => site_url('Dashboard')
+		];
+
+		$this->load->view('component/header', $this->data);
+		$this->load->view('component/sidebar', $this->data);
+		$this->load->view('buletin/buletin_view', $data);
+		$this->load->view('component/footer');
+	}
+
+	public function tambahBuletin()
+	{
+		$this->form_validation->set_rules('judul', 'judul', 'required');
+		$this->form_validation->set_rules('ringkasan', 'ringkasan', 'required');
+		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('buletin/tambah_buletin');
+		} else {
+			$this->load->library('upload');
+			$upload_image = $_FILES['image']['name'];
+			$path = './assets/images/berita/';
+			if (!is_dir($path)) {
+				mkdir($path, 0777, true);
+			}
+
+			if ($upload_image) {
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size'] = '1500';
+				$config['upload_path'] = $path;
+
+				$this->upload->initialize($config);
+
+				if ($this->upload->do_upload('image')) {
+					$new_image = $this->upload->data('file_name');
+					// $this->db->set('image', $new_image);
+				} else {
+					echo $this->upload->display_errors();
+				}
+			}
+			$data = array(
+				'judul' => $this->input->post('judul'),
+				'ringkasan' => $this->input->post('ringkasan'),
+				'image' => $new_image
+			);
+			$this->buletin_model->tambah($data);
+			redirect(base_url() . 'content/buletin/');
+		}
+	}
+
+	public function editBuletin($id)
+	{
+		$this->form_validation->set_rules('judul', 'judul', 'required');
+		$this->form_validation->set_rules('ringkasan', 'ringkasan', 'required');
+		if ($this->form_validation->run() === FALSE) {
+			$data['buletin_csirt'] = $this->buletin_model->detail_buletin();
+			$data['detail'] = $this->buletin_model->detail_buletin($id);
+			$data = array(
+				'buletin_csirt' => $this->buletin_model->detail_buletin(),
+				'detail' => $this->buletin_model->detail_buletin($id)
+			);
+			$this->load->view('buletin/edit_buletin', $data);
+			// Kalau tidak ada error buletin diupdate
+		} else {
+			$this->load->library('upload');
+			$upload_image = $_FILES['image']['name'];
+			$path = './assets/images/berita/';
+			if (!is_dir($path)) {
+				mkdir($path, 0777, true);
+			}
+
+			if ($upload_image) {
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['max_size'] = '1500';
+				$config['upload_path'] = $path;
+
+				$this->upload->initialize($config);
+
+				if ($this->upload->do_upload('image')) {
+					$new_image = $this->upload->data('file_name');
+					// $this->db->set('image', $new_image);
+				} else {
+					echo $this->upload->display_errors();
+				}
+			}
+
+			$data = array(
+				'id_brt' => $id,
+				'judul' => $this->input->post('judul'),
+				'ringkasan' => $this->input->post('ringkasan'),
+				'image' => $new_image
+
+			);
+
+			$this->buletin_model->edit_buletin($data);
+			redirect(base_url() . 'content/buletin/');
+		}
+	}
+
+	public function deleteBuletin($id)
+	{
+		$this->buletin_model->delete_buletin($id);
+		redirect(base_url() . 'content/buletin/');
+	}
+
+
+	// if ($this->form_validation->run() === FALSE) {
+	// 	$this->load->view('buletin/tambah_buletin');
+	// } else {
+	// 	$config['allowed_types'] = 'gif|jpg|png';
+	// 	$config['max_size'] = '1500';
+	// 	$config['upload_path'] = './assets/images/berita/';
+	// 	$this->load->library('upload', $config);
+	// 	if (!$this->upload->do_upload('image')) {
+	// 		$data['error'] = $this->upload->display_errors();
+	// 	} else {
+	// 		$_data = $this->upload->data();
+	// 		$data = array(
+	// 			'judul' => $this->input->post('judul'),
+	// 			'ringkasan' => $this->input->post('ringkasan'),
+	// 			'image' => $_data['upload_data']['file_name']
+	// 		);
+	// 		$query = $this->db->insert('upload', $data);
+	// 		if ($query) {
+	// 			echo 'berhasil di upload';
+	// 			redirect('upload_gambar');
+	// 		} else {
+	// 			echo 'gagal upload';
+	// 		}
+	// 	}
+	// 	$this->buletin_model->tambah($data);
+	// 	redirect(base_url() . 'content/buletin/');
+	// }
 }
