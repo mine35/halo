@@ -287,7 +287,6 @@ class Dashboard extends CI_Controller
 	public function editDokpen($id)
 	{
 		$this->form_validation->set_rules('judul', 'judul', 'required');
-		$this->form_validation->set_rules('isi', 'isi', 'required');
 		if ($this->form_validation->run() === FALSE) {
 			$data['dokpen_csirt'] = $this->dokpen_model->detail_dokpen();
 			$data['detail'] = $this->dokpen_model->detail_dokpen($id);
@@ -298,15 +297,36 @@ class Dashboard extends CI_Controller
 			$this->load->view('admin/dokpen/edit_dokpen', $data);
 			// Kalau tidak ada error dokpen diupdate
 		} else {
+			$this->load->library('upload');
+			$upload_file = $_FILES['isi']['name'];
+			$path = './assets/dokpen/';
+			if (!is_dir($path)) {
+				mkdir($path, 0777, true);
+			}
+
+			if ($upload_file) {
+				$config['allowed_types'] = 'pdf|docx|xls|ppt';
+				$config['upload_path'] = $path;
+
+				$this->upload->initialize($config);
+
+				if ($this->upload->do_upload('isi')) {
+					$new_file = $this->upload->data('file_name');
+					// $this->db->set('image', $new_image);
+				} else {
+					echo $this->upload->display_errors();
+				}
+			}
 			$data = array(
 				'id_dokpen' => $id,
 				'judul' => $this->input->post('judul'),
-				'isi' => $this->input->post('isi'),
+				'isi' => $new_file
 			);
 			$this->dokpen_model->edit_dokpen($data);
 			redirect(base_url() . 'content/dokpen/');
 		}
 	}
+
 
 	public function deleteDokpen($id)
 	{
